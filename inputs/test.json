@@ -1,0 +1,7 @@
+{
+    "algorithm_config": {
+        "type": "built-in",
+        "fdf_mean": 300,
+        "trials": 100
+    }
+}
