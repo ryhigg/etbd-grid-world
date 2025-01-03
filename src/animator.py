@@ -4,7 +4,7 @@ import matplotlib.animation as animation
 
 
 class Animator:
-    def __init__(self, rows, cols, path):
+    def __init__(self, grid: np.ndarray, path: list[int]):
         """
         Initialize the animator
 
@@ -12,22 +12,29 @@ class Animator:
         :param cols: Number of columns in the grid
         :param path: List of states representing the organism's movement
         """
-        self.rows = rows
-        self.cols = cols
         self.path = path
-        self.grid = np.zeros((rows, cols))
+        self.grid = grid
+        self.rows, self.cols = grid.shape
 
         # Create figure and axis
         self.fig, self.ax = plt.subplots(figsize=(8, 8))
 
         # Set up grid visualization
-        self.ax.set_xlim(-0.5, cols - 0.5)
-        self.ax.set_ylim(-0.5, rows - 0.5)
-        self.ax.set_xticks(range(cols))
-        self.ax.set_yticks(range(rows))
+        self.ax.set_xlim(-0.5, self.cols - 0.5)
+        self.ax.set_ylim(-0.5, self.rows - 0.5)
+        self.ax.set_xticks(range(self.cols))
+        self.ax.set_yticks(range(self.rows))
         self.ax.set_xticklabels([])
         self.ax.set_yticklabels([])
         self.ax.grid(True, linestyle="--", color="lightgray")
+
+        # Plot blue circles and black squares based on grid values
+        for i in range(self.rows):
+            for j in range(self.cols):
+                if self.grid[i, j] == 1:
+                    self.ax.plot(j, i, "bo")  # Blue circle
+                elif self.grid[i, j] == -1:
+                    self.ax.plot(j, i, "ks")  # Black circle
 
         # Setup for scatter plot of current position
         self.scatter = self.ax.scatter([], [], color="orange", s=200)
@@ -122,3 +129,14 @@ class Animator:
         """
         anim = self.create_animation()
         plt.show()
+
+
+if __name__ == "__main__":
+    grid = np.zeros((9, 9))
+
+    grid[0, 0] = 1
+    grid[8, 8] = -1
+    grid[4, 4] = -1
+    grid[4, 5] = -1
+
+    Animator(grid, [i for i in range(81)]).show_animation()

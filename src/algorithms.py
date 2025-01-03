@@ -53,6 +53,7 @@ class EmergentReinforcementDecay(Algorithm):
                 trial_reward += reward
 
                 if done:
+                    print(f"Trial: {trial}, Reward: {trial_reward}")
                     self.total_rewards[trial] = trial_reward
                     self.path_lengths[trial] = len(states)
                     states_updated = []
@@ -106,6 +107,7 @@ class BuiltInReinforcementDecay(Algorithm):
                 trial_reward += reward
 
                 if done:
+                    print(f"Trial: {trial}, Reward: {trial_reward}")
                     self.total_rewards[trial] = trial_reward
                     self.path_lengths[trial] = len(states)
                     states_updated = []
@@ -159,6 +161,7 @@ class EmergentReinforcementDecayAllStates(Algorithm):
                 trial_reward += reward
 
                 if done:
+                    print(f"Trial: {trial}, Reward: {trial_reward}")
                     self.total_rewards[trial] = trial_reward
                     self.path_lengths[trial] = len(states)
                     states_updated = []
@@ -211,6 +214,7 @@ class BuiltInReinforcementDecayAllStates(Algorithm):
                 trial_reward += reward
 
                 if done:
+                    print(f"Trial: {trial}, Reward: {trial_reward}")
                     self.total_rewards[trial] = trial_reward
                     self.path_lengths[trial] = len(states)
                     states_updated = []

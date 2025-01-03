@@ -29,17 +29,18 @@ class Experiment:
         )
 
     def run(self, plot=True, animate=True):
+        print("Running Experiment...")
         self.algorithm.run()
-        if plot:
-            self.plot_results()
-        if animate:
-            self.animate()
-
         print("Experiment Statistics:")
         print("Algorithm:", self.config["algorithm_config"]["type"])
         print("Mean Total Reward:", np.mean(self.algorithm.total_rewards))
         print("Mean Path Length:", np.mean(self.algorithm.path_lengths))
         print("Final Path:", self.algorithm.paths[-1])
+
+        if plot:
+            self.plot_results()
+        if animate:
+            self.animate()
 
     def plot_results(self):
         total_rewards, path_lengths, paths = self.algorithm.get_output()
@@ -52,5 +53,5 @@ class Experiment:
     def animate(self):
         total_rewards, path_lengths, paths = self.algorithm.get_output()
         final_path = paths[-1]
-        animator = Animator(self.grid.rows, self.grid.cols, final_path)
+        animator = Animator(self.grid.grid, final_path)
         animator.show_animation()

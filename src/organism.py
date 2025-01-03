@@ -5,8 +5,8 @@ from src.grid import GridWorld
 
 class Organism:
     def __init__(self, grid: GridWorld, config):
-        self.grid = grid
         self.config = config
+        self.grid = grid
 
         self.lower_phenotype_bound = config["lower_phenotype_bound"]
         self.upper_phenotype_bound = config["upper_phenotype_bound"]
@@ -16,9 +16,8 @@ class Organism:
         self.bit_string_length = len(bin(self.upper_phenotype_bound)) - 2
 
         self.init_populations()
+        self.set_grid(grid)
         self.set_fdf(self.fdf_form)
-
-        self.set_sd(grid.agent_position)
 
     def init_populations(self):
         self.populations = [
@@ -29,6 +28,10 @@ class Organism:
             )
             for _ in range(len(self.grid.possible_states))
         ]
+
+    def set_grid(self, grid):
+        self.grid = grid
+        self.set_sd(grid.agent_position)
 
     def set_sd(self, position):
         self.current_population = self.populations[position]
